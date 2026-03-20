@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flying Tiger Investments — Learn to Trade at Your Pace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f7f4;
+      --white: #ffffff;
+      --navy: #2e2e2e;
+      --navy-light: #3d3d3d;
+      --gold: #e8670a;
+      --gold-light: #f07a20;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e0d8;
+      --surface: #f2efeb;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 54px; width: auto; display: block; }
+    .logo-text { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); line-height: 1.2; }
+    .logo-sub { font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 600; display: block; }
+
+    nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    nav a:hover { color: var(--navy); }
+
+    .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 0.55rem 1.4rem; border-radius: 6px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--gold-light) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      align-items: center; gap: 4rem;
+      padding: 8rem 4rem 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero::after {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 46%; height: 100%;
+      background: linear-gradient(150deg, var(--surface) 0%, #e4ddd0 100%);
+      z-index: 0;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.74rem; letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+    }
+    .hero-badge::before { content: ''; width: 28px; height: 2px; background: var(--gold); }
+
+    h1 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      line-height: 1.13; letter-spacing: -0.02em; color: var(--navy);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+    }
+
+    h1 em { font-style: normal; color: var(--gold); }
+
+    .hero-desc {
+      font-size: 1.05rem; color: var(--muted); max-width: 480px;
+      margin-bottom: 2.5rem; line-height: 1.8;
+      opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
+    }
+
+    .btn {
+      display: inline-block; padding: 0.9rem 2.2rem; border-radius: 7px;
+      font-size: 0.92rem; font-weight: 600; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--navy); color: var(--white); box-shadow: 0 4px 18px rgba(13,31,60,0.2); }
+    .btn-primary:hover { background: var(--navy-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(13,31,60,0.25); }
+    .btn-gold { background: var(--gold); color: var(--navy); box-shadow: 0 4px 16px rgba(201,168,76,0.3); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
+    .btn-white { background: var(--white); color: var(--navy); font-weight: 600; }
+    .btn-white:hover { background: var(--surface); transform: translateY(-2px); }
+
+    .hero-visual { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .stat-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.4rem 1.8rem; box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      opacity: 0; animation: fadeUp 0.7s forwards;
+    }
+    .stat-card:nth-child(1) { animation-delay: 0.5s; }
+    .stat-card:nth-child(2) { animation-delay: 0.65s; margin-left: 1.5rem; }
+    .stat-card:nth-child(3) { animation-delay: 0.8s; }
+
+    .stat-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 0.35rem; }
+    .stat-value { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
+    .stat-value span { font-size: 0.9rem; color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 600; margin-left: 0.3rem; }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: var(--navy); padding: 1.4rem 4rem;
+      display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.6rem; color: rgba(255,255,255,0.7); font-size: 0.87rem; font-weight: 500; }
+    .trust-item .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+    /* SECTIONS */
+    section { padding: 6rem 4rem; }
+
+    .section-tag {
+      font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .section-tag::before { content: ''; width: 20px; height: 2px; background: var(--gold); }
+
+    h2 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(2rem, 3.5vw, 3rem); color: var(--navy);
+      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem;
+    }
+
+    .section-sub { color: var(--muted); font-size: 1rem; max-width: 540px; line-height: 1.8; margin-bottom: 3.5rem; }
+
+    /* IOF SECTION */
+    .iof-bg { background: var(--white); }
+
+    .iof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; }
+
+    .iof-card {
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 2.2rem; background: var(--bg);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .iof-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
+    }
+    .iof-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .iof-card:hover::before { transform: scaleX(1); }
+
+    .iof-icon {
+      width: 46px; height: 46px; background: var(--navy); border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1.3rem;
+    }
+    .iof-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.6rem; }
+    .iof-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+
+    /* WHAT YOU'LL LEARN */
+    .learn-bg { background: var(--navy); }
+    .learn-bg h2 { color: var(--white); }
+    .learn-bg .section-tag { color: var(--gold-light); }
+    .learn-bg .section-tag::before { background: var(--gold-light); }
+    .learn-bg .section-sub { color: rgba(255,255,255,0.6); }
+
+    .learn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+
+    .learn-pill {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 1.1rem 1.4rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.92rem; font-weight: 500; color: rgba(255,255,255,0.85);
+      transition: all 0.2s;
+    }
+    .learn-pill:hover { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.4); color: var(--white); }
+
+    .tick {
+      width: 22px; height: 22px; background: var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; color: var(--navy); font-weight: 700; flex-shrink: 0;
+    }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+    .step { padding-top: 1rem; }
+    .step-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: var(--border); line-height: 1; margin-bottom: 1rem; }
+    .step h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .step p { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+
+    /* SKOOL SECTION */
+    .skool-bg { background: var(--surface); }
+
+    .skool-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+
+    .skool-badge {
+      display: inline-block;
+      background: var(--navy); color: var(--white);
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .skool-features { list-style: none; margin: 1.5rem 0 2.5rem; display: flex; flex-direction: column; gap: 0.9rem; }
+    .skool-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
+    .skool-features li::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.85rem; margin-top: 0.15rem; flex-shrink: 0; }
+
+    .skool-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+      padding: 2.5rem; box-shadow: 0 8px 40px rgba(0,0,0,0.07); text-align: center;
+    }
+    .skool-card .tiger { font-size: 3rem; margin-bottom: 1rem; }
+    .skool-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .skool-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.65; }
+    .skool-meta { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .skool-meta span { font-size: 0.8rem; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 0.3rem; }
+    .skool-meta strong { color: var(--navy); }
+
+    /* CONTACT */
+    .contact-bg { background: var(--navy); text-align: center; }
+    .contact-bg h2 { color: var(--white); }
+    .contact-bg .section-tag { color: var(--gold-light); justify-content: center; }
+    .contact-bg .section-tag::before { background: var(--gold-light); display: none; }
+    .contact-bg .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 3rem; }
+
+    .contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 700px; margin: 0 auto 3rem; }
+
+    .contact-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 2rem; text-align: center;
+      transition: all 0.2s; text-decoration: none;
+    }
+    .contact-card:hover { background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .contact-card .c-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .contact-card .c-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.4rem; }
+    .contact-card .c-value { color: var(--white); font-size: 0.95rem; font-weight: 500; }
+
+    /* FOOTER */
+    footer {
+      background: #080f1d; color: rgba(255,255,255,0.4);
+      padding: 2.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem; font-size: 0.83rem;
+    }
+    footer .logo-text { color: var(--white); }
+    footer .logo-sub { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+      .hero::after { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .trust-bar { padding: 1.5rem; gap: 1.5rem; }
+      .skool-inner { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Flying Tiger Investments" />
+    </a>
+    <ul>
+      <li><a href="#method">Our Method</a></li>
+      <li><a href="#learn">What You'll Learn</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://www.skool.com/learn-to-trade-7920/about" target="_blank" class="nav-cta">Join Free →</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Institutional Order Flow Trading</div>
+      <h1>Trade With the<br/><em>Institutions</em>,<br/>Not Against Them</h1>
+      <p class="hero-desc">
+        Learn to read Institutional Order Flow (IOF) — the same signals that banks
+        and hedge funds use — so you can trade with precision, avoid retail traps,
+        and build real confidence in the markets.
+      </p>
+      <div class="hero-cta">
+        <a href="https://www.skool.com/learn-to-trade-7920/about" target="_blank" class="btn btn-gold">Join the Free Community</a>
+        <a href="#method" class="btn btn-outline">Learn Our Method</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="stat-label">Community</div>
+        <div class="stat-value">50+ Members <span>& growing</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Cost to Join</div>
+        <div class="stat-value">Completely Free <span>✓</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Format</div>
+        <div class="stat-value">In-Person & Online <span>📈</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item"><span class="dot"></span>Institutional Order Flow</div>
+    <div class="trust-item"><span class="dot"></span>Spot hidden liquidity</div>
+    <div class="trust-item"><span class="dot"></span>Avoid retail traps</div>
+    <div class="trust-item"><span class="dot"></span>1-on-1 private tutoring</div>
+    <div class="trust-item"><span class="dot"></span>Free Skool community</div>
+  </div>
+
+  <!-- IOF METHOD -->
+  <section id="method" class="iof-bg">
+    <div class="section-tag">The Method</div>
+    <h2>Why Institutional<br/>Order Flow Changes Everything</h2>
+    <p class="section-sub">Most retail traders lose because they're trading against institutions. We teach you to read what the banks are actually doing — in real time.</p>
+    <div class="iof-grid">
+      <div class="iof-card">
+        <div class="iof-icon">🔍</div>
+        <h3>Spot Hidden Liquidity</h3>
+        <p>Institutional orders are often hidden or spread out. Order flow tools reveal these large hidden orders, creating price imbalances that signal upcoming market shifts.</p>
+      </div>
+      <div class="iof-card">
+        <div class="iof-icon">🛡️</div>
+        <h3>Avoid Retail Traps</h3>
+        <p>Understanding institutional behavior helps you avoid the liquidity sweeps and stop-loss hunts that are specifically designed to take money from retail traders.</p>
+      </div>
+      <div class="iof-card">
+        <div class="iof-icon">🎯</div>
+        <h3>Precision Entry & Exit</h3>
+        <p>Pinpoint exactly where large institutions and banks are entering or exiting — giving you better entry points, tighter stops, and higher-probability trades.</p>
+      </div>
+      <div class="iof-card">
+        <div class="iof-icon">📊</div>
+        <h3>Actionable Data, Not Guesses</h3>
+        <p>Instead of speculating, you can actually see massive buying in a down market — a real signal of a potential reversal, not a gut feeling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU'LL LEARN -->
+  <section id="learn" class="learn-bg">
+    <div class="section-tag">Curriculum</div>
+    <h2>What You'll Learn</h2>
+    <p class="section-sub">Private tutoring sessions and community content cover everything from the basics of market structure to advanced IOF strategies.</p>
+    <div class="learn-grid">
+      <div class="learn-pill"><span class="tick">✓</span>Institutional Order Flow (IOF)</div>
+      <div class="learn-pill"><span class="tick">✓</span>Reading Icebergs & Hidden Orders</div>
+      <div class="learn-pill"><span class="tick">✓</span>Market Structure & Liquidity</div>
+      <div class="learn-pill"><span class="tick">✓</span>Bank & Hedge Fund Behavior</div>
+      <div class="learn-pill"><span class="tick">✓</span>Stop-Loss Hunt Identification</div>
+      <div class="learn-pill"><span class="tick">✓</span>Price Imbalance Signals</div>
+      <div class="learn-pill"><span class="tick">✓</span>TradingView & Webull Setup</div>
+      <div class="learn-pill"><span class="tick">✓</span>Precision Entry & Exit Timing</div>
+      <div class="learn-pill"><span class="tick">✓</span>Risk & Position Management</div>
+      <div class="learn-pill"><span class="tick">✓</span>Reading Real-Time Order Flow</div>
+      <div class="learn-pill"><span class="tick">✓</span>Reversal & Momentum Signals</div>
+      <div class="learn-pill"><span class="tick">✓</span>Building a Repeatable Strategy</div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-tag">The Process</div>
+    <h2>How It Works</h2>
+    <p class="section-sub">Whether you start with the free community or jump into private tutoring, the path is straightforward.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Join the Free Community</h3>
+        <p>Start by joining our Skool community — free to access, with lessons, resources, and fellow traders learning alongside you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Free Consultation</h3>
+        <p>Book a no-obligation call with Stephen to discuss your goals, current knowledge, and what you want to achieve in the markets.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Private 1-on-1 Sessions</h3>
+        <p>Work directly with Stephen in person or virtually. Sessions are tailored to your pace and focused on what actually moves your trading forward.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Trade with an Edge</h3>
+        <p>Walk away with a real understanding of institutional behavior and a strategy that gives you a genuine edge over retail traders.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKOOL COMMUNITY -->
+  <section id="community" class="skool-bg">
+    <div class="skool-inner">
+      <div>
+        <span class="skool-badge">Free Skool Community</span>
+        <h2>Join the Learn to<br/>Trade Community</h2>
+        <p style="color: var(--muted); line-height: 1.8; margin-bottom: 0;">
+          Our free Skool group is where it all starts. Get access to lessons, community discussions,
+          a trading calendar, and connect with other traders on the same journey.
+        </p>
+        <ul class="skool-features">
+          <li>Classroom content & IOF lessons at your own pace</li>
+          <li>Community feed with real trade discussions</li>
+          <li>Trading calendar & upcoming events</li>
+          <li>Interactive member map & leaderboards</li>
+          <li>Direct access to Stephen Jenkins</li>
+        </ul>
+        <a href="https://www.skool.com/learn-to-trade-7920/about" target="_blank" class="btn btn-primary">Join the Group Free →</a>
+      </div>
+      <div class="skool-card">
+        <img src="logo.png" alt="Flying Tiger Investments" style="height:90px; width:auto; margin: 0 auto 0.5rem; display:block;" />
+        <h3>Learn to Trade at Your Pace!</h3>
+        <p>Build financial literacy, gain control over your finances, and create opportunities for wealth generation through Institutional Order Flow trading.</p>
+        <div class="skool-meta">
+          <span>👥 <strong>50+ Members</strong></span>
+          <span>🔓 <strong>Public & Free</strong></span>
+          <span>📚 <strong>Classroom Included</strong></span>
+        </div>
+        <a href="https://www.skool.com/learn-to-trade-7920/about" target="_blank" class="btn btn-gold" style="width:100%; text-align:center; display:block;">Join Now — It's Free</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-bg">
+    <div class="section-tag">Get in Touch</div>
+    <h2 style="color: var(--white);">Ready to Start Trading<br/>with an Edge?</h2>
+    <p class="section-sub">Reach out directly to book a free consultation or ask any questions about private tutoring.</p>
+    <div class="contact-cards">
+      <a href="tel:+15124613744" class="contact-card">
+        <div class="c-icon">📞</div>
+        <div class="c-label">Call or Text</div>
+        <div class="c-value">(512) 461-3744</div>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#681b1c0d18000d060a1a0d061c020d060301061b280f05090104460b0705" class="contact-card">
+        <div class="c-icon">✉️</div>
+        <div class="c-label">Email</div>
+        <div class="c-value">stephenbrentjenkins<br/>@gmail.com</div>
+      </a>
+      <a href="https://www.skool.com/learn-to-trade-7920/about" target="_blank" class="contact-card">
+        <div class="c-icon">🐯</div>
+        <div class="c-label">Skool Community</div>
+        <div class="c-value">Join Free →</div>
+      </a>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#483b3c2d38202d262a3a2d263c222d262321263b082f25292124662b2725" class="btn btn-gold">Book a Free Consultation</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="logo">
+      <img src="logo.png" alt="Flying Tiger Investments" style="height:48px; width:auto;" />
+    </a>
+    <div class="footer-links">
+      <a href="#method">Our Method</a>
+      <a href="#learn">Curriculum</a>
+      <a href="#community">Community</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.skool.com/learn-to-trade-7920/about" target="_blank">Skool →</a>
+    <
