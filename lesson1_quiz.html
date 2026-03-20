@@ -1,0 +1,153 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0}
+.q-block{margin-bottom:28px}
+.q-num{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.q-text{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:14px;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid var(--color-border-tertiary);cursor:pointer;font-size:14px;color:var(--color-text-primary);line-height:1.5;transition:background .1s}
+.opt:hover{background:var(--color-background-secondary)}
+.opt.correct{border-color:#0F6E56;background:#E1F5EE;color:#085041}
+.opt.wrong{border-color:#A32D2D;background:#FCEBEB;color:#501313}
+.opt.reveal-correct{border-color:#0F6E56;background:#E1F5EE;color:#085041}
+.opt-letter{font-weight:500;min-width:18px}
+.feedback{font-size:13px;margin-top:8px;padding:10px 14px;border-radius:8px;line-height:1.6;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#E1F5EE;color:#085041}
+.feedback.wrong{background:#FCEBEB;color:#501313}
+.score-block{display:none;margin-top:32px;padding:20px;border-radius:12px;border:1px solid var(--color-border-tertiary);text-align:center}
+.score-block.show{display:block}
+.score-num{font-size:36px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
+.score-label{font-size:14px;color:var(--color-text-secondary)}
+.reset-btn{margin-top:16px;padding:8px 20px;border-radius:8px;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-primary);cursor:pointer;font-size:14px}
+</style>
+<div class="wrap">
+
+<div class="q-block" id="q1">
+  <div class="q-num">Question 1 of 5</div>
+  <div class="q-text">What is a support level?</div>
+  <div class="options">
+    <div class="opt" onclick="answer('q1',this,false)"><span class="opt-letter">A</span>A price level where sellers consistently show up and push price down</div>
+    <div class="opt" onclick="answer('q1',this,true)"><span class="opt-letter">B</span>A price level where buyers consistently show up and push price up</div>
+    <div class="opt" onclick="answer('q1',this,false)"><span class="opt-letter">C</span>The highest price a stock has ever reached</div>
+    <div class="opt" onclick="answer('q1',this,false)"><span class="opt-letter">D</span>A government guarantee on a stock's minimum value</div>
+  </div>
+  <div class="feedback correct" id="q1-c">Exactly right. Support is a floor — buyers show up at that price level, creating upward pressure.</div>
+  <div class="feedback wrong" id="q1-w">Not quite. Support is the floor, not the ceiling. It's where buyers gather and push prices back up.</div>
+</div>
+
+<div class="q-block" id="q2">
+  <div class="q-num">Question 2 of 5</div>
+  <div class="q-text">A stock bounces off the $80 level four times over six months. What does this tell you?</div>
+  <div class="options">
+    <div class="opt" onclick="answer('q2',this,false)"><span class="opt-letter">A</span>The stock is broken and you should avoid it</div>
+    <div class="opt" onclick="answer('q2',this,false)"><span class="opt-letter">B</span>$80 is a weak level because the price keeps returning to it</div>
+    <div class="opt" onclick="answer('q2',this,true)"><span class="opt-letter">C</span>$80 is a strong support level — many traders are watching and buying at that price</div>
+    <div class="opt" onclick="answer('q2',this,false)"><span class="opt-letter">D</span>The level doesn't matter until the stock breaks through it</div>
+  </div>
+  <div class="feedback correct" id="q2-c">Correct. More touches = stronger level. Four bounces means a lot of buyers have clustered at $80 — it's a level worth watching closely.</div>
+  <div class="feedback wrong" id="q2-w">The opposite is true — more touches make a level stronger, not weaker. Four bounces signals that many traders see $80 as a key buying opportunity.</div>
+</div>
+
+<div class="q-block" id="q3">
+  <div class="q-num">Question 3 of 5</div>
+  <div class="q-text">Why do support and resistance levels exist in the first place?</div>
+  <div class="options">
+    <div class="opt" onclick="answer('q3',this,false)"><span class="opt-letter">A</span>They are set by stock exchanges as official price limits</div>
+    <div class="opt" onclick="answer('q3',this,false)"><span class="opt-letter">B</span>They are calculated using complex mathematical formulas</div>
+    <div class="opt" onclick="answer('q3',this,true)"><span class="opt-letter">C</span>Traders remember past prices and make decisions based on where price has reacted before</div>
+    <div class="opt" onclick="answer('q3',this,false)"><span class="opt-letter">D</span>They are created by large hedge funds to trap small traders</div>
+  </div>
+  <div class="feedback correct" id="q3-c">Spot on. S&R levels are a product of collective trader memory and psychology — not formulas or rules. That's what makes them so powerful.</div>
+  <div class="feedback wrong" id="q3-w">S&R levels come from trader psychology. When many traders remember a price reacting at a certain level, they make similar decisions there in the future — creating the level again.</div>
+</div>
+
+<div class="q-block" id="q4">
+  <div class="q-num">Question 4 of 5</div>
+  <div class="q-text">If a stock is approaching a resistance level, what is most likely to happen?</div>
+  <div class="options">
+    <div class="opt" onclick="answer('q4',this,false)"><span class="opt-letter">A</span>The stock will always break through the level and keep rising</div>
+    <div class="opt" onclick="answer('q4',this,true)"><span class="opt-letter">B</span>Sellers may step in and push the price back down — the price "hits the ceiling"</div>
+    <div class="opt" onclick="answer('q4',this,false)"><span class="opt-letter">C</span>The stock price will freeze and stop moving entirely</div>
+    <div class="opt" onclick="answer('q4',this,false)"><span class="opt-letter">D</span>Buyers will rush in, causing a guaranteed rally</div>
+  </div>
+  <div class="feedback correct" id="q4-c">Correct. At a resistance level, sellers tend to show up in force — pushing the price back down. It acts like a ceiling.</div>
+  <div class="feedback wrong" id="q4-w">Resistance levels are ceilings where sellers gather. The most likely outcome is that selling pressure increases and price gets pushed back down — though breakouts do happen too.</div>
+</div>
+
+<div class="q-block" id="q5">
+  <div class="q-num">Question 5 of 5</div>
+  <div class="q-text">Complete the sentence: "Support is to floor as resistance is to ___"</div>
+  <div class="options">
+    <div class="opt" onclick="answer('q5',this,false)"><span class="opt-letter">A</span>Foundation</div>
+    <div class="opt" onclick="answer('q5',this,false)"><span class="opt-letter">B</span>Wall</div>
+    <div class="opt" onclick="answer('q5',this,true)"><span class="opt-letter">C</span>Ceiling</div>
+    <div class="opt" onclick="answer('q5',this,false)"><span class="opt-letter">D</span>Roof</div>
+  </div>
+  <div class="feedback correct" id="q5-c">Perfect. Support = floor, Resistance = ceiling. Those two analogies are the foundation of everything we'll build on from here.</div>
+  <div class="feedback wrong" id="q5-w">The correct analogy is ceiling. Support is the floor (price bounces up), resistance is the ceiling (price gets pushed down).</div>
+</div>
+
+<div class="score-block" id="score">
+  <div class="score-num" id="score-num">0/5</div>
+  <div class="score-label" id="score-label"></div>
+  <button class="reset-btn" onclick="reset()">Retake quiz</button>
+</div>
+
+</div>
+<script>
+const answers = {};
+const total = 5;
+function answer(qid, el, correct) {
+  if(answers[qid] !== undefined) return;
+  answers[qid] = correct;
+  const opts = el.parentElement.querySelectorAll('.opt');
+  opts.forEach(o => { o.style.pointerEvents='none'; o.onclick=null; });
+  if(correct) {
+    el.classList.add('correct');
+    document.getElementById(qid+'-c').classList.add('show');
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o => { if(o.onclick === null && o !== el) { } });
+    const allOpts = el.closest('.q-block').querySelectorAll('.opt');
+    allOpts.forEach(o => { if(o !== el) o.classList.add('reveal-correct'); });
+    document.getElementById(qid+'-w').classList.add('show');
+  }
+  if(Object.keys(answers).length === total) showScore();
+}
+function showScore() {
+  const score = Object.values(answers).filter(Boolean).length;
+  document.getElementById('score-num').textContent = score + '/' + total;
+  const labels = ['Keep reviewing — watch the video again and come back!','Good start — review the questions you missed.','Solid understanding — you\'re ready for Lesson 2.','Great work — the concepts are clicking!','Perfect score — you\'ve nailed Lesson 1. On to the charts!'];
+  document.getElementById('score-label').textContent = labels[score];
+  document.getElementById('score').classList.add('show');
+}
+function reset() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.opt').forEach(o => { o.className='opt'; o.style.pointerEvents=''; });
+  document.querySelectorAll('.feedback').forEach(f => f.classList.remove('show'));
+  document.getElementById('score').classList.remove('show');
+  document.querySelectorAll('.q-block .opt').forEach(o => {
+    const qid = o.closest('.q-block').id;
+    const isCorrect = o.textContent.includes('buyers consistently show up') ||
+      o.textContent.includes('strong support level') ||
+      o.textContent.includes('remember past prices') ||
+      o.textContent.includes('Sellers may step in') ||
+      o.textContent.includes('Ceiling');
+    o.onclick = function(){ answer(qid, o, isCorrect); };
+  });
+}
+document.querySelectorAll('.q-block .opt').forEach(o => {
+  const qid = o.closest('.q-block').id;
+  const correctTexts = {
+    q1: 'buyers consistently show up',
+    q2: 'strong support level',
+    q3: 'remember past prices',
+    q4: 'Sellers may step in',
+    q5: 'Ceiling'
+  };
+  const isCorrect = o.textContent.includes(correctTexts[qid]);
+  o.onclick = function(){ answer(qid, o, isCorrect); };
+});
+</script>
